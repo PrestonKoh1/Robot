@@ -1,0 +1,39 @@
+#include <educationshield.h>
+
+//The joystick uses two analog pins. Here pin A0 and A1
+Joystick joystick = Joystick(A1,A0);//Joystick(XanalogPin, YanalogPin)
+
+Servo pan, tilt;
+
+int panAngle = 90; //Pan angle starts in the middle position
+int tiltAngle = 90; //Tilt angle starts in the middle position
+
+int panJoystick = 0;
+int tiltJoystick = 0;
+
+void setup(){
+ //servos are initialized
+ pan.attach(6);
+ tilt.attach(9);
+}
+
+void loop(){
+ panJoystick = joystick.getX(); //Get X value from joystick
+ tiltJoystick = joystick.getY(); //Get Y value from joystick
+ 
+//If the joysticks X value isn't 0 we will pan
+ if(panJoystick!=0){
+   //If the X value from the joystick equals 1 and
+   //panAngle is less than 180 degrees, increase panAngle with 1
+   if(panJoystick==1 && panAngle0) panAngle--;
+ }
+ //If the joysYicks Y value is 0 we will tilt
+ if(tiltJoystick!=0){
+   //If the Y value from the joystick equals 1 and
+   //tiltAngle is less than 180 degrees, increase tiltAngle with 1
+   if(tiltJoystick==1 && tiltAngle0) tiltAngle--;
+ }
+ pan.write(panAngle); //Set position of the pan servo
+ tilt.write(tiltAngle); //Set position of the tilt servo
+ delay(5);
+}
